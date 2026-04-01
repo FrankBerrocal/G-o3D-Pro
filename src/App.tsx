@@ -81,10 +81,20 @@ export default function App() {
       case 'cylinder': return <Cylinder className="w-5 h-5" />;
       case 'cone': return <Triangle className="w-5 h-5" />;
       case 'pyramid': return <Triangle className="w-5 h-5" />;
+      case 'triangular_pyramid': return <Triangle className="w-5 h-5" />;
       case 'prism': return <Layers className="w-5 h-5" />;
+      case 'triangular_prism': return <Layers className="w-5 h-5" />;
+      case 'pentagonal_prism': return <Layers className="w-5 h-5" />;
+      case 'hexagonal_prism': return <Layers className="w-5 h-5" />;
+      case 'octagonal_prism': return <Layers className="w-5 h-5" />;
       default: return <Box className="w-5 h-5" />;
     }
   };
+
+  const sortedShapes = useMemo(() => 
+    [...SHAPES].sort((a, b) => a.name.localeCompare(b.name)),
+    []
+  );
 
   const unitLabel = unit;
   const areaUnit = `${unit}²`;
@@ -135,24 +145,24 @@ export default function App() {
               Sélectionner une figure
             </h2>
             <div className="grid grid-cols-1 gap-2">
-              {SHAPES.map((shape) => (
+              {sortedShapes.map((shape) => (
                 <button
                   key={shape.id}
                   onClick={() => handleShapeChange(shape.id)}
                   className={cn(
-                    "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group",
+                    "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group text-left",
                     selectedShapeId === shape.id 
                       ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/20" 
                       : "hover:bg-white/5 text-white/60 hover:text-white"
                   )}
                 >
                   <span className={cn(
-                    "transition-transform duration-300",
+                    "shrink-0 transition-transform duration-300",
                     selectedShapeId === shape.id ? "scale-110" : "group-hover:scale-110"
                   )}>
                     {getIcon(shape.id)}
                   </span>
-                  <span className="font-medium text-sm">{shape.name}</span>
+                  <span className="font-medium text-sm leading-tight">{shape.name}</span>
                 </button>
               ))}
             </div>
