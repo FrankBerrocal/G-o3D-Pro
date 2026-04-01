@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera, Environment, ContactShadows } from '@react-three/drei';
 import { SHAPES, ShapeType } from './types';
@@ -18,6 +18,11 @@ import {
 export default function App() {
   const [selectedShapeId, setSelectedShapeId] = useState<ShapeType>('cube');
   const [unit, setUnit] = useState<'m' | 'cm'>('m');
+  
+  useEffect(() => {
+    document.title = "Géo3D Pro par Frank Berrocal © 2026";
+  }, []);
+
   const [params, setParams] = useState<Record<string, number>>(() => {
     const initialParams: Record<string, number> = {};
     SHAPES.find(s => s.id === 'cube')?.params.forEach(p => {
