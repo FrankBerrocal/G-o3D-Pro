@@ -12,8 +12,6 @@ import {
   Square, 
   Layers,
   Calculator,
-  Maximize2,
-  Minimize2,
   Info
 } from 'lucide-react';
 
@@ -84,6 +82,7 @@ export default function App() {
       case 'triangular_pyramid': return <Triangle className="w-5 h-5" />;
       case 'prism': return <Layers className="w-5 h-5" />;
       case 'triangular_prism': return <Layers className="w-5 h-5" />;
+      case 'triangular_prism_right': return <Layers className="w-5 h-5" />;
       case 'pentagonal_prism': return <Layers className="w-5 h-5" />;
       case 'hexagonal_prism': return <Layers className="w-5 h-5" />;
       case 'octagonal_prism': return <Layers className="w-5 h-5" />;
@@ -203,12 +202,6 @@ export default function App() {
                 Visualisation 3D ({unit})
               </div>
             </div>
-
-            <div className="absolute bottom-6 right-6 z-10 flex gap-2">
-              <button className="p-2 bg-black/40 backdrop-blur-md border border-white/10 rounded-lg hover:bg-white/10 transition-colors">
-                <Maximize2 className="w-4 h-4" />
-              </button>
-            </div>
           </div>
 
           {/* Parameters Controls */}
@@ -258,14 +251,14 @@ export default function App() {
             <div className="relative z-10 space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-indigo-200 text-[10px] font-bold uppercase tracking-widest mb-1">Aire Base</p>
+                  <p className="text-indigo-200 text-[10px] font-bold uppercase tracking-widest mb-1">Abas</p>
                   <div className="flex items-baseline gap-1">
                     <span className="text-xl font-bold tracking-tighter">{baseArea.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
                     <span className="text-indigo-200 text-[10px] font-medium">{areaUnit}</span>
                   </div>
                 </div>
                 <div>
-                  <p className="text-indigo-200 text-[10px] font-bold uppercase tracking-widest mb-1">Aire Latérale</p>
+                  <p className="text-indigo-200 text-[10px] font-bold uppercase tracking-widest mb-1">Alat</p>
                   <div className="flex items-baseline gap-1">
                     <span className="text-xl font-bold tracking-tighter">{lateralArea.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
                     <span className="text-indigo-200 text-[10px] font-medium">{areaUnit}</span>
@@ -300,19 +293,79 @@ export default function App() {
             <div className="space-y-3">
               <div className="p-3 bg-black/20 rounded-xl border border-white/5">
                 <p className="text-[10px] text-white/40 uppercase mb-1">Aire Base</p>
-                <code className="text-xs text-indigo-300 block">{selectedShape.formulas.base}</code>
+                <code className="text-xs text-indigo-300 block whitespace-pre-line">{selectedShape.formulas.base}</code>
               </div>
               <div className="p-3 bg-black/20 rounded-xl border border-white/5">
                 <p className="text-[10px] text-white/40 uppercase mb-1">Aire Latérale</p>
-                <code className="text-xs text-indigo-300 block">{selectedShape.formulas.lateral}</code>
+                <code className="text-xs text-indigo-300 block whitespace-pre-line">{selectedShape.formulas.lateral}</code>
               </div>
               <div className="p-3 bg-black/20 rounded-xl border border-white/5">
                 <p className="text-[10px] text-white/40 uppercase mb-1">Aire Totale</p>
-                <code className="text-xs text-indigo-300 block">{selectedShape.formulas.total}</code>
+                <code className="text-xs text-indigo-300 block whitespace-pre-line">{selectedShape.formulas.total}</code>
               </div>
               <div className="p-3 bg-black/20 rounded-xl border border-white/5">
                 <p className="text-[10px] text-white/40 uppercase mb-1">Volume</p>
-                <code className="text-xs text-indigo-300 block">{selectedShape.formulas.volume}</code>
+                <code className="text-xs text-indigo-300 block whitespace-pre-line">{selectedShape.formulas.volume}</code>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Glossary Panel */}
+        <div className="lg:col-span-12 mt-8">
+          <div className="bg-white/5 border border-white/10 rounded-3xl p-8">
+            <h2 className="text-lg font-semibold mb-6 flex items-center gap-2">
+              <Info className="w-5 h-5 text-indigo-400" />
+              Glossaire des formules
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+              <div className="space-y-1">
+                <p className="text-indigo-400 font-mono font-bold">C</p>
+                <p className="text-xs text-white/60">côté (ou arête)</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-indigo-400 font-mono font-bold">B</p>
+                <p className="text-xs text-white/60">base (côté de la base)</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-indigo-400 font-mono font-bold">Lon</p>
+                <p className="text-xs text-white/60">longueur</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-indigo-400 font-mono font-bold">lar</p>
+                <p className="text-xs text-white/60">largeur</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-indigo-400 font-mono font-bold">H</p>
+                <p className="text-xs text-white/60">hauteur du solide</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-indigo-400 font-mono font-bold">R</p>
+                <p className="text-xs text-white/60">rayon</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-indigo-400 font-mono font-bold">Pb</p>
+                <p className="text-xs text-white/60">périmètre de la base</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-indigo-400 font-mono font-bold">Abas</p>
+                <p className="text-xs text-white/60">aire de la base</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-indigo-400 font-mono font-bold">Alat</p>
+                <p className="text-xs text-white/60">aire latérale</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-indigo-400 font-mono font-bold">Apo</p>
+                <p className="text-xs text-white/60">apothème (hauteur latérale pyramide)</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-indigo-400 font-mono font-bold">Gén</p>
+                <p className="text-xs text-white/60">génératrice du cône (g = √(r² + h²))</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-indigo-400 font-mono font-bold">h_tri</p>
+                <p className="text-xs text-white/60">hauteur du triangle (base)</p>
               </div>
             </div>
           </div>
