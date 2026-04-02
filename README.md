@@ -7,3 +7,5 @@ I am currently studying Math, and found no better way to document what I am lear
 
 
 This is the beginning of what I expect will become an exntesive portfolio of AI and crafted apps (artisan apps ???? ) in the road to create my own career path. 
+
+I am creating my website, soon all this information will be posted there.  
